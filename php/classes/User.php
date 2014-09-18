@@ -1,9 +1,10 @@
 <?php
 	class User{
 		private $name;
+		private $home;
 		private $server;
 		
-		public function __construct($name, $server){
+		public function __construct($name, $home, $server){
 			$this->name=$name;
 			$this->server=$server;
 		}

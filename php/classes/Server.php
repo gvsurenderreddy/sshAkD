@@ -34,17 +34,27 @@
 			$connection=ssh2_connect($this->ip);
 			ssh2_auth_password($connection, $user, $password);
 			
+			$this->getUsers($connection);
+			$this->addKey("","");
+		}
+		
+		private function getUsers($connection){
 			$rC=0;
 			do{
-				$stream = ssh2_exec($connection, 'cat /etc/passwd | grep "/home" |cut -d: -f1');
+				$stream = ssh2_exec($connection, 'cat /etc/passwd | grep "/home" |cut -d: -f1,6');
 				sleep(1);
-				$rc++;
-			} while (!$stream&&$rC<3)
+				$rC++;
+			} while (!$stream&&$rC<3);
+			
 			$strUsers=stream_get_contents($stream);
-			$users=preg_split('/$\R?^/m',$strUsers);
-			if(count($users)>=1){
-				$this->users=array_merge($this->users,$users);
+			$usersHomes=preg_split('/$\R?^/m',$strUsers);
+			foreach($usersHomes as $uH){
+				$this->users=array_merge($this->users,array(explode(':',$uH)));
 			}
+		}
+		
+		private function addKey($user,$key){
+			
 		}
 	}
 ?>
