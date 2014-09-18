@@ -34,8 +34,12 @@
 			$connection=ssh2_connect($this->ip);
 			ssh2_auth_password($connection, $user, $password);
 			
-			$stream = ssh2_exec($connection, 'ls -l');
-			echo stream_get_contents($stream);
+			$stream = ssh2_exec($connection, 'cat /etc/passwd | grep "/home" |cut -d: -f1');
+			$strUsers=stream_get_contents($stream);
+			$users=preg_split('/$\R?^/m',$strUsers);
+			if(count($users)>=1){
+				$this->users=array_merge($this->users,$users);
+			}
 		}
 	}
 ?>
