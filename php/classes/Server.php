@@ -1,6 +1,7 @@
 <?php
 	class Server{
 		/* Var declarations */
+		private $id;
 		private $name;
 		private $ip;
 		private $os;
@@ -9,7 +10,8 @@
 		private $adminUser="root";
 		
 		/* ##START with the magic shit */
-		public function __construct($name, $ip, $sudo, $adminUser){
+		public function __construct($id, $name, $ip, $sudo, $adminUser){
+			$this->id=$id;
 			$this->name=$name;
 			$this->ip=$ip;
 			if($sudo){
@@ -39,7 +41,7 @@
 			
 			$this->getUsers($connection);
 			foreach($this->users as $u){
-				if($u->name==$adminUser){
+				if($u->name==$this->adminUser){
 					$u->addKey("");
 				}
 			}
@@ -60,13 +62,13 @@
 			
 			/* make a new user for every line and add it to the $users-array */
 			foreach($usersHomes as $uH){
-				$userAttrs=array(explode(':',$uH);
+				$userAttrs=array(explode(':',$uH));
 				push($this->users,new User($userAttrs[0],$userAttrs[1],$this->name));
 			}
 			
 			/* if adminUser is root add it to the array too ('cause he'd not be catched by the "grep /home" below */
 			if($this->adminUser->name=="root"){
-				push($this->users,new User("root","/root/",$this->name);
+				push($this->users,new User("root","/root/",$this->name));
 			}
 		}
 	}

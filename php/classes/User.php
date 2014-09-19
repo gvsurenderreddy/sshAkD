@@ -28,8 +28,19 @@
 			$connection=ssh2_connect($this->server->ip);
 			$rC=0;
 			do{
-				$stream = ssh2_exec($connection, "echo #$this->name@$this->server >> $this->home/.ssh/authorized_keys");
-				$stream = ssh2_exec($connection, "echo $key >> this->home/.ssh/authorized_keys");
+				//ssh2_exec($connection, "echo #$key->contact@$this->server >> $this->home/.ssh/authorized_keys");
+				//ssh2_exec($connection, "echo $key->pubKey >> $this->home/.ssh/authorized_keys");
+				sleep(1);
+				$rC++;
+			} while (!$stream&&$rC<3);
+		}
+		
+		private function removeKey($key){
+			$connection=ssh2_connect($this->server->ip);
+			$rC=0;
+			do{
+				ssh2_exec($connection, "grep -v #$key->contact@$this->server $this->home/.ssh/authorized_keys > akTmp && mv akTmp $this->home/.ssh/authorized_keys");
+				ssh2_exec($connection, "grep -v $key->pubKey $this->home/.ssh/authorized_keys > akTmp && mv akTmp $this->home/.ssh/authorized_keys");
 				sleep(1);
 				$rC++;
 			} while (!$stream&&$rC<3);

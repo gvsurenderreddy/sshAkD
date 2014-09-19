@@ -1,12 +1,14 @@
 <?php
 	class Key{
 		/* Var declarations */
+		private $id;
 		private $name;
 		private $pubKey;
 		private $contact;
 		
 		/* ##START with the magic shit */
-		public function __construct($name, $pubKey){
+		public function __construct($id, $name, $pubKey){
+			$this->id=id;
 			$this->name=$name;
 			$this->pubKey=$pubKey;
 		}
