@@ -1,9 +1,11 @@
 <?php
 	class Key{
+		/* Var declarations */
 		private $name;
 		private $pubKey;
 		private $contact;
 		
+		/* ##START with the magic shit */
 		public function __construct($name, $pubKey){
 			$this->name=$name;
 			$this->pubKey=$pubKey;
@@ -20,5 +22,6 @@
 				$this->$property = $value;
 			}
 		}
+		/* #END with the magic shit */
 	}
 ?>
