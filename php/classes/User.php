@@ -1,12 +1,14 @@
 <?php
 	class User{
 		/* Var declarations */
+		private $id;
 		private $name;
 		private $home;
 		private $server;
+		private $keys=array();
 		
 		/* ##START with the magic shit */
-		public function __construct($name, $home, $server){
+		public function __construct($id, $name, $home, $server){
 			$this->name=$name;
 			$this->server=$server;
 		}
@@ -25,6 +27,7 @@
 		/* #END with the magic shit */
 		
 		private function addKey($key){
+			push($this->keys,$key);
 			$connection=ssh2_connect($this->server->ip);
 			$rC=0;
 			do{

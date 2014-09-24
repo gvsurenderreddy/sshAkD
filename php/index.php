@@ -1,5 +1,9 @@
 <?php
-error_reporting(E_ALL); ini_set('display_errors', '1');
+	/*DEBUG ON*/
+	error_reporting(E_ALL); ini_set('display_errors', '1');
+	/**/
+	
+	include_once("classes/Database.php");
 	include_once("classes/Server.php");
 	include_once("classes/Key.php");
 	include_once("classes/User.php");
@@ -14,9 +18,12 @@ error_reporting(E_ALL); ini_set('display_errors', '1');
 			throw new Exception("Unexpected Header");
 		}
 	}
+	echo $_SERVER['REQUEST_URI'];
 	
 	switch($method) {
 			case 'DELETE':
+				$request = $_DELETE;
+				break;
 			case 'POST':
 				$request = $_POST;
 				break;
@@ -25,7 +32,7 @@ error_reporting(E_ALL); ini_set('display_errors', '1');
 				echo '{"title": "test"}';
 				break;
 			case 'PUT':
-				$request = $_GET;
+				$request = $_PUT;
 				$file = file_get_contents("php://input");
 				break;
 			default:

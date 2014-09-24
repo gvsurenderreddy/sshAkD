@@ -4,6 +4,7 @@ function Key(id, name, pubKey){
 	this.id=id;
 	this.name=name;
 	this.pubKey=pubKey;
+	this.contact="";
 	
 	/* use ajax to create new key in backend */
 }
@@ -28,7 +29,7 @@ Key.prototype.toJSON = function() {
  */
 Key.prototype.save = function() {
 	var _that = this;
-	var _url = 'http://localhost/sshAkD/php';
+	var _url = 'http://localhost/sshAkD/php/key/';
 	if (this.id) { _url += this.id; }
 	$.post(_url, this.toJSON(), function(data) {
 		_that.id = JSON.parse(data).id;
@@ -45,13 +46,12 @@ Key.prototype.save = function() {
  *   object as first and only parameter.
  */
 Key.load = function(id, callback) {
-  $.getJSON('http://localhost/sshAkD/php'+id, function(data) {
+  $.getJSON('http://localhost/sshAkD/php/key/'+id, function(data) {
     var _key = new Key()
     _key.id = data.id;
     _key.name = data.name;
-	_key.ip = data.ip;
-	_key.sudo = data.sudo;
-	_key.adminUser = data.adminUser;
+	_key.pubKey = data.pubKey;
+	_key.contact = data.contact;
     callback(_key)
   });
 }

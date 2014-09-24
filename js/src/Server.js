@@ -6,7 +6,7 @@ function Server(id, name, ip, sudo, adminUser){
 	this.ip=ip;
 	this.sudo=sudo;
 	this.adminUser=adminUser;
-		
+	this.users=[];
 	/* use ajax to create new key in backend */
 }
 
@@ -29,7 +29,7 @@ Server.prototype.toJSON = function() {
  */
 Server.prototype.save = function() {
 	var _that = this;
-	var _url = 'http://localhost/sshAkD/php';
+	var _url = 'http://localhost/sshAkD/php/server/';
 	if (this.id) { _url += this.id; }
 	$.post(_url, this.toJSON(), function(data) {
 		_that.id = JSON.parse(data).id;
@@ -46,13 +46,18 @@ Server.prototype.save = function() {
  *   object as first and only parameter.
  */
 Server.load = function(id, callback) {
-  $.getJSON('http://localhost/sshAkD/php'+id, function(data) {
-    var _server = new Server()
+  $.getJSON('http://localhost/sshAkD/php/server/'+id, function(data) {
+    var _server = new Server();
     _server.id = data.id;
     _server.name = data.name;
 	_server.ip = data.ip;
+	var _i;
+	for (_i = 0; _i < data.users.length; _i += 1) {
+		var _user = new User(data.users[_i].id, data.users[_i].name, data.users[_i].home);
+		_server.users.push(_user);
+	}
 	_server.sudo = data.sudo;
 	_server.adminUser = data.adminUser;
-    callback(_server)
+    callback(_server);
   });
 }
