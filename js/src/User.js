@@ -30,7 +30,7 @@ User.prototype.addKey = function(key) {
  * is written back to the model after it is received from
  * the user.
  */
-User.prototype.save = function() {
+/*User.prototype.save = function() {
 	var _that = this;
 	var _url = 'http://localhost/sshAkD/php/user/';
 	if (this.id) { _url += this.id; }
@@ -38,4 +38,4 @@ User.prototype.save = function() {
 		_that.id = JSON.parse(data).id;
 		window.location.hash = _that.id
 	});
-}
+}*/

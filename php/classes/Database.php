@@ -5,5 +5,7 @@
 		public function fetch($endpoint, $id);
 		
 		public function put($endpoint, $id);
+		
+		public function delete($endpoint, $id);
 	}
 ?>
