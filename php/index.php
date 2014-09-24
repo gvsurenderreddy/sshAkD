@@ -23,7 +23,7 @@
 			throw new Exception("Unexpected Header");
 		}
 	}
-	if(!in_arr($endPoint,$endPoints){
+	if(!in_array($endPoint,$endPoints)){
 		throw new Exception("Unavailable Endpoint");
 	}
 	switch($method) {
@@ -50,7 +50,7 @@
 				} else {
 					/* generate new ID and put object into database $db->put($endpoint,$id);*/
 				}
-				$file = file_get_contents("php://input");
+				//$file = file_get_contents("php://input");
 				break;
 			default:
 				echo "fuckOff";
