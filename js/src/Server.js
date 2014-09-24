@@ -46,7 +46,7 @@ Server.prototype.save = function() {
  *   object as first and only parameter.
  */
 Server.load = function(id, callback) {
-  $.getJSON('http://localhost/sshAkD/php/server/'+id, function(data) {
+  $.getJSON('http://localhost/php/server/'+id, function(data) {
     var _server = new Server();
     _server.id = data.id;
     _server.name = data.name;

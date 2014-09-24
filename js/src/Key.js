@@ -46,7 +46,7 @@ Key.prototype.save = function() {
  *   object as first and only parameter.
  */
 Key.load = function(id, callback) {
-  $.getJSON('http://localhost/sshAkD/php/key/'+id, function(data) {
+  $.getJSON('http://localhost/php/key/'+id, function(data) {
     var _key = new Key()
     _key.id = data.id;
     _key.name = data.name;

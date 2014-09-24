@@ -8,9 +8,14 @@
 	include_once("classes/Key.php");
 	include_once("classes/User.php");
 	
-	$endPoints=array("server","key");
+	include_once("classes/databases/Mock.php");
+	
+	$db=new Mock();
+	$db->connect();
+	
+	$endpoints=array("server","key");
 	$arrEndpoint=explode('/',$_SERVER['REQUEST_URI']);
-	$endPoint=$arrEndpoint[2];
+	$endpoint=$arrEndpoint[2];
 	$id=$arrEndpoint[3];
 	
 	$method = $_SERVER['REQUEST_METHOD'];
@@ -23,7 +28,7 @@
 			throw new Exception("Unexpected Header");
 		}
 	}
-	if(!in_array($endPoint,$endPoints)){
+	if(!in_array($endpoint,$endpoints)){
 		throw new Exception("Unavailable Endpoint");
 	}
 	switch($method) {
@@ -40,6 +45,7 @@
 			case 'GET':
 				if(strlen($id)>1){
 					/* fetch object from database $db->fetch($endpoint,$id);*/
+					echo $db->fetch($endpoint,$id);
 				} else {
 					/* return error */
 				}
