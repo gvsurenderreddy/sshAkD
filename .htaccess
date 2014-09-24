@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteRule ^php/server/ /php/index.php
+RewriteRule ^php/key/ /php/index.php
+RewriteRule ^php/user/ /php/index.php
